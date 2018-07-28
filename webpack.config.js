@@ -15,5 +15,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [new HtmlPlugin()]
+  plugins: [new HtmlPlugin()],
+  devtool: "source-map"
 };
