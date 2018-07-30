@@ -4,52 +4,35 @@ import _ from "lodash";
 import cytoscape from "cytoscape";
 
 console.log(_.map([1, 2, 3, 4, 5, 6, 7], a => a * a));
+import data from "./data";
 
-var cy = cytoscape({
-  container: document.getElementById("cy"),
-  elements: [
-    { data: { id: "a" } },
-    { data: { id: "b" } },
-    { data: { id: "c" } },
-    { data: { id: "d" } },
-    { data: { id: "e" } },
-    {
-      data: {
-        id: "ab",
-        source: "a",
-        target: "b",
-        shape: "ellipse"
-      }
-    },
-    {
-      data: {
-        id: "bc",
-        source: "b",
-        target: "c"
-      }
-    },
-    {
-      data: {
-        id: "be",
-        source: "b",
-        target: "e"
-      }
-    },
-    {
-      data: {
-        id: "cd",
-        source: "c",
-        target: "d"
-      }
-    },
-    {
-      data: {
-        id: "ed",
-        source: "e",
-        target: "d"
-      }
+let elements = [];
+//let relations = [];
+data.forEach(node => {
+  let newNode = {
+    data: {
+      id: node.id
     }
-  ],
+  };
+  elements.push(newNode);
+
+  if (node.parents) {
+    node.parents.forEach(pid => {
+      let newRelation = {
+        data: {
+          id: pid + "-" + node.id,
+          source: pid,
+          target: node.id
+        }
+      };
+      elements.push(newRelation);
+    });
+  }
+});
+
+let cy = cytoscape({
+  container: document.getElementById("cy"),
+  elements: elements,
   style: [
     {
       selector: "node",
@@ -86,6 +69,6 @@ var cy = cytoscape({
 //   });
 // }
 const layout = cy.layout({
-  name: "grid"
+  //name: "grid"
 });
 layout.run();
