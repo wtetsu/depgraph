@@ -15,7 +15,7 @@
   "dependencies": {
     "cytoscape": "^3.7.0",
     "cytoscape-dagre": "^2.2.2",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.13"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
